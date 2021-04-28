@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="card-body">
+      <div style="background: rgb(197, 253, 67)" class="card-header">
+        <div class="text-center">
+          <h2>Agregar Operación</h2>
+        </div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="addOperation($event)">
+        
+        <div class="form-group mt-3 mb-3">
+          <div class="cont-flex">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Concepto"
+                formControlName="concepto"
+                maxlength="25"
+            >
+            <!-- validations -->
+            <div *ngIf="conceptoField.errors && conceptoField.dirty">
+                <span *ngIf="conceptoField.hasError('maxlength')"><small class="text-danger">hasta 25 caracteres</small></span>
+                <span *ngIf="conceptoField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+            </div>
+          </div>        
+        </div>
+
+        <div class="form-group mb-3">
+          <div class="cont-flex">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Monto"
+                formControlName="monto"
+                maxlength="5"
+            >
+            <!-- validations -->
+            <div *ngIf="montoField.errors && montoField.dirty">
+                <span *ngIf="montoField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                <span *ngIf="montoField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <div class="cont-flex">
+              <label class="mr-3">Tipo:</label>
+            <mat-form-field>
+                
+                <mat-select formControlName="tipo" (selectionChange)="captureValue($event)">
+                    <mat-option
+                        *ngFor="let type of tipos"
+                        [value]="type"
+                    >
+                        {{ type }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>         
+          </div>      
+        </div>
+
+        <div class="form-group mb-3">
+            <div class="cont-flex">
+                <mat-form-field>
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fecha" />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <!-- validations -->
+            <div *ngIf="fechaField.errors && montoField.dirty">
+                <span *ngIf="fechaField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                <!-- <span *ngIf="fechaField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span> -->
+            </div>
+            </div>        
+        </div>
+
+        <div class="form-group mb-3">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="form.invalid"
+          >
+            Agregar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+

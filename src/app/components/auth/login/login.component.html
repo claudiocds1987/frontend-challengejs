@@ -1,0 +1,65 @@
+<div class="card">
+    
+    <div class="card-body">
+        <div style="background: rgb(197, 253, 67)" class="card-header">
+            <div class="text-center">
+              <h2>Login</h2>
+            </div>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="login($event)">
+
+            <div class="form-group mt-3 mb-3">
+                <div class="cont-flex">
+                  <input 
+                      type="email" 
+                      class="form-control" 
+                      placeholder="@Email"
+                      formControlName="email"
+                      maxlength="50"
+                  >
+                  <!-- validations -->
+                  <div *ngIf="emailField.errors && emailField.dirty">
+                    <span *ngIf="emailField.hasError('email')"><small class="text-danger">El email no es valido!</small></span>
+                      <span *ngIf="emailField.hasError('maxlength')"><small class="text-danger">El email es muy largo</small></span>
+                      <span *ngIf="emailField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                  </div>
+                </div>        
+            </div>
+    
+            <div class="form-group mt-3 mb-3">
+                <div class="cont-flex">
+                  <input 
+                      type="password" 
+                      class="form-control" 
+                      placeholder="password"
+                      formControlName="password"
+                      maxlength="50"
+                  >
+                  <!-- validations -->
+                  <div *ngIf="passwordField.errors && passwordField.dirty">
+                    <span *ngIf="passwordField.hasError('minlength')"><small class="text-danger">El password debe ser mas largo</small></span>
+                      <span *ngIf="passwordField.hasError('maxlength')"><small class="text-danger">El password muy largo</small></span>
+                      <span *ngIf="passwordField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                  </div>
+                </div>        
+            </div>
+    
+            <div class="text-center">
+                <p>
+                  ¿No tiene una cuenta? <a routerLink="/signup">Registrarme</a>
+                </p>
+              </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                [disabled]="form.invalid"
+              >
+                LOGIN
+              </button>
+        </form>
+
+    </div>
+
+</div>
