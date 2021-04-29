@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Operation } from '../models/operation';
@@ -8,18 +8,23 @@ import { Operation } from '../models/operation';
 })
 export class OperationService {
 
-  constructor(private http: HttpClient) { }
+  SERVER = 'http://localhost:4000';
 
-  getOperations(): Observable<any>{
-    // const url = 'https://jsonplaceholder.typicode.com/photos';
-    const url ='https://jsonplaceholder.typicode.com/posts/1/comments'
-    return this.http.get(url);
+  constructor(private http: HttpClient) { 
+    // toma la url correspondiente dependiendo si estoy en modo desarrollo o produccion
+    if (!isDevMode()) {
+			this.SERVER = 'https://server-challengejs.herokuapp.com';
+		}
+  }
+
+  getAllOperationsByUserAndType(userEmail: string, typeOperation: string): Observable<any>{
+    return this.http.get<Operation[]>(
+      `${this.SERVER}/api/operations/${userEmail}/${typeOperation}`
+    );
   }
 
   createOperation(operation: Operation): Observable<any>{
-    // const url = 'https://jsonplaceholder.typicode.com/photos';
-    const url ='https://jsonplaceholder.typicode.com/posts/1/comments'
-    return this.http.post(url, operation);
+    return this.http.post(`${this.SERVER}/api/operations`, operation);
   }
 
 }

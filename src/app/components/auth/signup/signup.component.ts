@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 // model
 import { User } from '../../../models/user';
 
@@ -18,7 +19,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
     ) {
     this.buildForm();
   }
@@ -51,8 +53,13 @@ export class SignupComponent implements OnInit {
       this.authService.userSignup(this.user).subscribe(
         res => {
           console.log(res);
+          alert('Usuario registrado exitosamente!')
+          this.router.navigate(['login']).then(() => {
+            // para hacer refresh
+            window.location.reload();
+          });
         },
-        err => console.error('Error al crear el usuario. ' + err)
+        err => alert('Error, no se pudo hacer el registro de usuario')
       )
     }
   }

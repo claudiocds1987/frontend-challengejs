@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
             window.location.reload();
           });
         },
-        err => console.error('Error login de usuario: ' + err)
+        err => alert('El usuario no existe')
       )
 
     }

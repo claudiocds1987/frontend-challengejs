@@ -1,113 +1,147 @@
-<div *ngIf="userEmail != null || userEmail != undefined else emptyUser" class="card">
-    <div class="card-body">
-      <div style="background: rgb(197, 253, 67)" class="card-header">
-        <div class="text-center">
-          <h2>Agregar Operación</h2>
-        </div>
-      </div>
-      <form [formGroup]="form" (ngSubmit)="addOperation($event)">
-        
-        <div class="form-group mt-3 mb-3">
-          <div class="text-center">
-            <input 
-                type="text" 
-                class="form-control" 
-                placeholder="Concepto"
-                formControlName="concept"
-                maxlength="25"
-            >
-            <!-- validations -->
-            <div *ngIf="conceptField.errors && conceptField.dirty">
-                <span *ngIf="conceptField.hasError('maxlength')"><small class="text-danger">hasta 25 caracteres</small></span>
-                <span *ngIf="conceptField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
-            </div>
-          </div>        
-        </div>
 
-        <div class="form-group mb-3">
+<div class="row">
+
+  <div class="col-sm-4">
+    <div *ngIf="userEmail != null || userEmail != undefined else emptyUser" class="card">
+      <div class="card-body">
+        <div style="background: rgb(197, 253, 67)" class="card-header">
           <div class="text-center">
-            <input 
-                type="text" 
-                class="form-control" 
-                placeholder="Monto"
-                formControlName="amount"
-                maxlength="5"
-            >
-            <!-- validations -->
-            <div *ngIf="amountField.errors && amountField.dirty">
-                <span *ngIf="amountField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
-                <span *ngIf="amountField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span>
-            </div>
+            <h2>Agregar Operación</h2>
           </div>
         </div>
-
-        <div class="form-group mb-3">  
-          <div class="text-center">
-              <label class="mr-3">Tipo:</label>
-            <mat-form-field>      
-                <mat-select formControlName="type" (selectionChange)="captureType($event)">
-                    <mat-option
-                        *ngFor="let type of types"
-                        [value]="type"
-                    >
-                        {{ type }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>         
-          </div>      
-        </div>
-
-        <div class="form-group mb-3">  
-          <div class="text-center">
-              <label class="mr-3">Categoria:</label>
-            <mat-form-field>      
-                <mat-select formControlName="category" (selectionChange)="captureCategory($event)">
-                    <mat-option
-                        *ngFor="let category of categories"
-                        [value]="category"
-                    >
-                        {{ category }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>         
-          </div>      
-        </div>
-
-        <div class="form-group mb-3">
+        <form [formGroup]="form" (ngSubmit)="addOperation($event)">
+          
+          <div class="form-group mt-3 mb-3">
             <div class="text-center">
-                <mat-form-field>
-                    <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date" />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                <!-- validations -->
-            <div *ngIf="dateField.errors && dateField.dirty">
-                <span *ngIf="dateField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
-                <!-- <span *ngIf="fechaField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span> -->
-            </div>
+              <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Concepto"
+                  formControlName="concept"
+                  maxlength="51"
+              >
+              <!-- validations -->
+              <div *ngIf="conceptField.errors && conceptField.dirty">
+                  <span *ngIf="conceptField.hasError('maxlength')"><small class="text-danger">hasta 50 caracteres</small></span>
+                  <span *ngIf="conceptField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+              </div>
             </div>        
-        </div>
-
-        <div class="form-group mb-3">
-          <button
-            type="submit"
-            class="btn btn-primary btn-block"
-            [disabled]="form.invalid"
-          >
-            Agregar
-          </button>
-        </div>
-      </form>
+          </div>
+  
+          <div class="form-group mb-3">
+            <div class="text-center">
+              <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Monto"
+                  formControlName="amount"
+                  maxlength="5"
+              >
+              <!-- validations -->
+              <div *ngIf="amountField.errors && amountField.dirty">
+                  <span *ngIf="amountField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                  <span *ngIf="amountField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group mb-3">  
+            <div class="text-center">
+                <label class="mr-3">Tipo:</label>
+              <mat-form-field>      
+                  <mat-select formControlName="type" (selectionChange)="captureType($event)">
+                      <mat-option
+                          *ngFor="let type of types"
+                          [value]="type"
+                      >
+                          {{ type }}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>         
+            </div>      
+          </div>
+  
+          <div class="form-group mb-3">  
+            <div class="text-center">
+                <label class="mr-3">Categoria:</label>
+              <mat-form-field>      
+                  <mat-select formControlName="category" (selectionChange)="captureCategory($event)">
+                      <mat-option
+                          *ngFor="let category of categories"
+                          [value]="category"
+                      >
+                          {{ category }}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>         
+            </div>      
+          </div>
+  
+          <div class="form-group mb-3">
+              <div class="text-center">
+                  <mat-form-field>
+                      <mat-label>Fecha</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="date" />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  <!-- validations -->
+              <div *ngIf="dateField.errors && dateField.dirty">
+                  <span *ngIf="dateField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                  <!-- <span *ngIf="fechaField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span> -->
+              </div>
+              </div>        
+          </div>
+  
+          <div class="form-group mb-3">
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              [disabled]="form.invalid"
+            >
+              Agregar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
-  <ng-template #emptyUser>
-    <h3 class="text-center text-danger">
-      Debe estar logeado paera realizar la operacion.
-    </h3>
-  </ng-template>
+  <div class="col-sm-8">
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center">Fecha</th>
+          <th class="text-center">Concepto</th>
+          <th class="text-center">Monto</th>
+          <th class="text-center">Categoria</th>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>29/04/2021</td>
+          <td>Cobro de sueldo</td>
+          <td>1500</td>
+          <td>impuestos</td>
+          <td>
+            <button class="btn btn-primary">Editar</button>
+            <button class="btn btn-danger">eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<ng-template #emptyUser>
+  <h3 class="text-center text-danger">
+    Debe estar logeado paera realizar la operacion.
+  </h3>
+</ng-template>
 

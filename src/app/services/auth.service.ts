@@ -18,7 +18,6 @@ export class AuthService {
 
   }
 
-
   // login
   userLogin(email: string, password){
     return this.http.post(`${this.SERVER}/api/users/login`, {email, password})

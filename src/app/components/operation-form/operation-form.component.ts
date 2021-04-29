@@ -7,6 +7,10 @@ import { MatSelectChange } from '@angular/material/select';
 // model
 import { Operation } from '../../models/operation';
 
+// services
+import { OperationService } from '../../services/operation.service';
+
+
 @Component({
   selector: 'app-operation-form',
   templateUrl: './operation-form.component.html',
@@ -27,6 +31,8 @@ export class OperationFormComponent implements OnInit {
   categories = [
     'comida',
     'viaticos',
+    'otros',
+    'impuestos'
   ]
 
   currentDate = new Date();
@@ -34,7 +40,10 @@ export class OperationFormComponent implements OnInit {
   form: FormGroup;
   userEmail;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public operationService: OperationService
+    ) {
     if(localStorage.getItem('user') !== null){
       this.userEmail = localStorage.getItem('user');
     }
@@ -42,12 +51,19 @@ export class OperationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
+    
+  
   }
+
+  // getAllOperationsByUserAndType(){
+  //   //this.operationService.getAllOperationsByUserAndType(this.userEmail,)
+  // }
 
   private buildForm(){
     // this.formBuilder.group crea un grupo de formControls basados en json
     this.form = this.formBuilder.group({
-      concept: ['', [Validators.required, Validators.maxLength(25)]],
+      concept: ['', [Validators.required, Validators.maxLength(50)]],
       amount:  ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       type: ['', [Validators.required]],
       category: ['', [Validators.required]],
@@ -93,6 +109,7 @@ export class OperationFormComponent implements OnInit {
     if(this.form.valid){
       this.operation = this.form.value;
       this.operation.userEmail = this.userEmail;
+      console.log('EMAIL: ' + this.operation.userEmail);
       console.log('CONCEPTO: ' + this.operation.concept);
       console.log('MONTO: ' + this.operation.amount);
       console.log('TIPO: ' + this.operation.type);
@@ -102,8 +119,17 @@ export class OperationFormComponent implements OnInit {
       if(this.operation.date > this.currentDate){
         alert('La fecha de operación no puede ser mayor a la fecha actual.');
       }else{
+        console.log('CACA');
         // aca service que haga el insert
-         //this.form.reset();
+        this.operationService.createOperation(this.operation).subscribe(
+          res => {
+            console.log(res);
+            alert('La operación fue guardada!');
+            this.form.reset();
+          },
+          err => alert('Error. No se pudo realizar la operación')
+        );
+        
       }
 
     }   
