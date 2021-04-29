@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 // para forms reactivos
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // model
 import { User } from '../../../models/user';
+
+// services
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +18,21 @@ export class LoginComponent implements OnInit {
   user = {} as User;
   form: FormGroup;
   
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
+    public router: Router
+    ) {
     this.buildForm();
    }
 
   ngOnInit(): void {
+  
+    if(localStorage.getItem('user') !== null){
+      localStorage.removeItem('user');
+      console.log('localStorage de user eliminada');
+    }
+  
   }
 
   private buildForm(){
@@ -41,7 +55,20 @@ export class LoginComponent implements OnInit {
   login(event: Event){
     event.preventDefault();
     if(this.form.valid){
-      console.log(this.form.value);
+      this.user = this.form.value;
+      this.authService.userLogin(this.user.email,this.user.password).subscribe(
+        res => {
+          console.log(res);
+          // aca crear la localStorage y redirigir
+          localStorage.setItem('user', this.user.email);
+          this.router.navigate(['home']).then(() => {
+            // para hacer refresh
+            window.location.reload();
+          });
+        },
+        err => console.error('Error login de usuario: ' + err)
+      )
+
     }
   }
 

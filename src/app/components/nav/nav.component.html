@@ -32,23 +32,11 @@
         <i class="fas fa-bars"></i>
       </label>
       <nav id="menu" class="menu" [ngClass]="{'hideMenu': hide, 'showMenu': show && !hide}">
-        <a (click)="hideMenu('home')"><i class="fa fa-home mr-2" aria-hidden="true"></i>Home</a>
+        <a *ngIf="userEmail != null || userEmail != undefined">{{userEmail}}</a>
+        <a (click)="hideMenu('home')">Home</a>
         <a (click)="hideMenu('create-operation')"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>New operation</a>
         <a (click)="hideMenu('list-operations')"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>List Operation</a>
         <a (click)="hideMenu('login')"><i class="fa fa-user mr-2" aria-hidden="true"></i>Login</a>
-        
-        <!-- <div *ngIf="username" class="dropdown show" id="cont-menu-user">
-          <a class="dropdown-toggle" role="button" id="menu-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ username }}
-          </a>
-          <div id="cont-menu-options" class="dropdown-menu" aria-labelledby="menu-user">
-            <a class="dropdown-item" [routerLink]="'/auth/login'">
-              <i class="fas fa-user-slash mr-2"></i>
-              Cerrar sesión
-            </a>
-          </div>
-        </div> -->
-  
       </nav>
     </div>
   </header>

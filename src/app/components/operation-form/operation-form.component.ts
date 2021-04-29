@@ -27,10 +27,12 @@ export class OperationFormComponent implements OnInit {
   currentDate = new Date();
   
   form: FormGroup;
+  userEmail;
 
-  constructor(
-    private formBuilder: FormBuilder) 
-    {
+  constructor(private formBuilder: FormBuilder) {
+    if(localStorage.getItem('user') !== null){
+      this.userEmail = localStorage.getItem('user');
+    }
     this.buildForm();
   }
 

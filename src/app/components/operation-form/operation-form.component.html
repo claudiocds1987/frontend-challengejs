@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="userEmail != null || userEmail != undefined else emptyUser" class="card">
     <div class="card-body">
       <div style="background: rgb(197, 253, 67)" class="card-header">
         <div class="text-center">
@@ -90,4 +90,9 @@
     </div>
   </div>
 
+  <ng-template #emptyUser>
+    <h3 class="text-center text-danger">
+      Debe estar logeado paera realizar la operacion.
+    </h3>
+  </ng-template>
 

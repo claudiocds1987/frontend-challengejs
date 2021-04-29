@@ -12,10 +12,15 @@ export class NavComponent implements OnInit {
   hide: boolean = false;
   show: boolean = false;
 
-  username:false;
+  userEmail;
   constructor( public router: Router) { }
 
   ngOnInit(): void {
+    
+    if(localStorage.getItem('user') !== null){
+      this.userEmail = localStorage.getItem('user');
+    }
+  
   }
 
   hideMenu(name: string) {
@@ -52,7 +57,10 @@ export class NavComponent implements OnInit {
       case 'login':
         this.hide = true;
         this.show = false;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']).then(() => {
+          // para hacer refresh
+          window.location.reload();
+        });
         break;
       default:
     }
