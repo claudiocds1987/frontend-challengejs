@@ -85,7 +85,8 @@
                       <mat-datepicker-toggle
                         matSuffix
                         [for]="picker"
-                      ></mat-datepicker-toggle>
+                      >
+                      </mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                   <!-- validations -->
@@ -111,7 +112,7 @@
   </div>
 
   <div class="col-sm-8">
-    <label class="mr-3">Tipo:</label>
+    <label class="mr-3">Listar por tipo:</label>
     <mat-form-field>      
         <mat-select formControlName="type" (selectionChange)="captureOperationType($event)">
             <mat-option
@@ -121,10 +122,11 @@
                 {{ type }}
             </mat-option>
         </mat-select>
-    </mat-form-field> 
+    </mat-form-field>
+    
     <table class="table table-striped mt-1">
       <thead>
-        <tr>
+        <tr class="text-center">
           <th class="text-center">Fecha</th>
           <th class="text-center">Concepto</th>
           <th class="text-center">Monto</th>
@@ -132,15 +134,15 @@
           <td></td>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let op of operationsList">
+      <tbody *ngIf="operationsList.length > 0">  
+        <tr *ngFor="let op of operationsList" class="text-center">
           <td class="text-center">{{op.date | date: "dd/MM/yyyy"}}</td>
           <td class="text-center">{{op.concept}}</td>
-          <td class="text-center">{{op.amount}}</td>
+          <td class="text-center">${{op.amount}}</td>
           <td class="text-center">{{op.category}}</td>
           <td>
-            <button class="btn btn-primary">Editar</button>
-            <button class="btn btn-danger">eliminar</button>
+            <button class="btn btn-primary btn-sm mr-1">Editar</button>
+            <button class="btn btn-danger btn-sm mr-1">eliminar</button>
           </td>
         </tr>
       </tbody>

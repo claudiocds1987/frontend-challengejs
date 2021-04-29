@@ -9,6 +9,7 @@ import { Operation } from '../../models/operation';
 
 // services
 import { OperationService } from '../../services/operation.service';
+import { CategoryService } from '../../services/category.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class OperationFormComponent implements OnInit {
   import { FormsModule, ReactiveFormsModule } from '@angular/forms';*/
 
   operation = {} as Operation;
-  operationsList = {} as Operation;
+  // operationsList = {} as Operation;
+  operationsList: Operation[] = [];
   
   types = [
     'ingreso',
