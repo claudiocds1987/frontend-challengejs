@@ -22,6 +22,7 @@ export class OperationFormComponent implements OnInit {
   import { FormsModule, ReactiveFormsModule } from '@angular/forms';*/
 
   operation = {} as Operation;
+  operationsList = {} as Operation;
   
   types = [
     'ingreso',
@@ -51,14 +52,18 @@ export class OperationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
-    
-  
+    // sadasdsad
   }
 
-  // getAllOperationsByUserAndType(){
-  //   //this.operationService.getAllOperationsByUserAndType(this.userEmail,)
-  // }
+  getAllOperationsByUserAndType(operationType: string){
+    this.operationService.getAllOperationsByUserAndType(this.userEmail, operationType).subscribe(
+      res => {
+        console.log(res);
+        this.operationsList = res;
+      },
+      err => console.error('Error al obtener las operaciones. ' + err)
+    );
+  }
 
   private buildForm(){
     // this.formBuilder.group crea un grupo de formControls basados en json
@@ -100,8 +105,7 @@ export class OperationFormComponent implements OnInit {
 
   // captura el value del <select> categorias
   captureCategory(event: MatSelectChange) {
-    this.operation.type = event.value;
-    // console.log('Objeto: '+ this.operation.tipo);
+    this.operation.category = event.value;
   }
 
   addOperation(event: Event){
@@ -133,6 +137,13 @@ export class OperationFormComponent implements OnInit {
       }
 
     }   
+  }
+
+  // captura el value del <select> tipos de la lista
+  captureOperationType(event: MatSelectChange){
+    let operationType = event.value;
+    console.log('OP ELEGIDA: ' + operationType);
+    this.getAllOperationsByUserAndType(operationType);
   }
 
 }
