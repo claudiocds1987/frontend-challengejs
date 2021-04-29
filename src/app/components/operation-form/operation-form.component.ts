@@ -19,10 +19,15 @@ export class OperationFormComponent implements OnInit {
 
   operation = {} as Operation;
   
-  tipos = [
+  types = [
     'ingreso',
     'egreso',
   ];
+
+  categories = [
+    'comida',
+    'viaticos',
+  ]
 
   currentDate = new Date();
   
@@ -42,33 +47,44 @@ export class OperationFormComponent implements OnInit {
   private buildForm(){
     // this.formBuilder.group crea un grupo de formControls basados en json
     this.form = this.formBuilder.group({
-      concepto: ['', [Validators.required, Validators.maxLength(25)]],
-      monto:  ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      tipo: ['', [Validators.required]],
-      fecha: [this.currentDate, [Validators.required]],  
+      concept: ['', [Validators.required, Validators.maxLength(25)]],
+      amount:  ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      type: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      date: [this.currentDate, [Validators.required]],  
     })
   }
 
   // para hacer referencia a los campos del formBuilder
-  get conceptoField(){
-    return this.form.get('concepto');
+  get conceptField(){
+    return this.form.get('concept');
   }
 
-  get montoField(){
-    return this.form.get('monto');
+  get amountField(){
+    return this.form.get('amount');
   }
   
-  get fechaField(){
-    return this.form.get('fecha');
+  get dateField(){
+    return this.form.get('date');
   } 
 
-  get tipoField(){
-    return this.form.get('tipo');
+  get typeField(){
+    return this.form.get('type');
+  } 
+
+  get categoryField(){
+    return this.form.get('category');
   } 
 
   // captura el value del <select> tipos
-  captureValue(event: MatSelectChange) {
-    this.operation.tipo = event.value;
+  captureType(event: MatSelectChange) {
+    this.operation.type = event.value;
+    // console.log('Objeto: '+ this.operation.tipo);
+  }
+
+  // captura el value del <select> categorias
+  captureCategory(event: MatSelectChange) {
+    this.operation.type = event.value;
     // console.log('Objeto: '+ this.operation.tipo);
   }
 
@@ -76,13 +92,19 @@ export class OperationFormComponent implements OnInit {
     event.preventDefault(); // para que no recargue/refresh la pagina al enviar la data
     if(this.form.valid){
       this.operation = this.form.value;
-      this.operation.userEmail = 'clau@gmail.com'
-      //this.operation.fecha = this.currentDate;
-      console.log('CONCEPTO: ' + this.operation.concepto);
-      console.log('MONTO: ' + this.operation.monto);
-      console.log('TIPO: ' + this.operation.tipo);
-      console.log('FECHA: ' + this.operation.fecha);
-      // aca service que haga el insert
+      this.operation.userEmail = this.userEmail;
+      console.log('CONCEPTO: ' + this.operation.concept);
+      console.log('MONTO: ' + this.operation.amount);
+      console.log('TIPO: ' + this.operation.type);
+      console.log('CATEGORIA: ' + this.operation.category);
+      console.log('FECHA: ' + this.operation.date);
+      
+      if(this.operation.date > this.currentDate){
+        alert('La fecha de operación no puede ser mayor a la fecha actual.');
+      }else{
+        // aca service que haga el insert
+         //this.form.reset();
+      }
 
     }   
   }

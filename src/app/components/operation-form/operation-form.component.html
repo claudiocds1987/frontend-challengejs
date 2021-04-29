@@ -8,47 +8,46 @@
       <form [formGroup]="form" (ngSubmit)="addOperation($event)">
         
         <div class="form-group mt-3 mb-3">
-          <div class="cont-flex">
+          <div class="text-center">
             <input 
                 type="text" 
                 class="form-control" 
                 placeholder="Concepto"
-                formControlName="concepto"
+                formControlName="concept"
                 maxlength="25"
             >
             <!-- validations -->
-            <div *ngIf="conceptoField.errors && conceptoField.dirty">
-                <span *ngIf="conceptoField.hasError('maxlength')"><small class="text-danger">hasta 25 caracteres</small></span>
-                <span *ngIf="conceptoField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+            <div *ngIf="conceptField.errors && conceptField.dirty">
+                <span *ngIf="conceptField.hasError('maxlength')"><small class="text-danger">hasta 25 caracteres</small></span>
+                <span *ngIf="conceptField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
             </div>
           </div>        
         </div>
 
         <div class="form-group mb-3">
-          <div class="cont-flex">
+          <div class="text-center">
             <input 
                 type="text" 
                 class="form-control" 
                 placeholder="Monto"
-                formControlName="monto"
+                formControlName="amount"
                 maxlength="5"
             >
             <!-- validations -->
-            <div *ngIf="montoField.errors && montoField.dirty">
-                <span *ngIf="montoField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
-                <span *ngIf="montoField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span>
+            <div *ngIf="amountField.errors && amountField.dirty">
+                <span *ngIf="amountField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+                <span *ngIf="amountField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span>
             </div>
           </div>
         </div>
 
-        <div class="form-group mb-3">
-          <div class="cont-flex">
+        <div class="form-group mb-3">  
+          <div class="text-center">
               <label class="mr-3">Tipo:</label>
-            <mat-form-field>
-                
-                <mat-select formControlName="tipo" (selectionChange)="captureValue($event)">
+            <mat-form-field>      
+                <mat-select formControlName="type" (selectionChange)="captureType($event)">
                     <mat-option
-                        *ngFor="let type of tipos"
+                        *ngFor="let type of types"
                         [value]="type"
                     >
                         {{ type }}
@@ -58,11 +57,27 @@
           </div>      
         </div>
 
+        <div class="form-group mb-3">  
+          <div class="text-center">
+              <label class="mr-3">Categoria:</label>
+            <mat-form-field>      
+                <mat-select formControlName="category" (selectionChange)="captureCategory($event)">
+                    <mat-option
+                        *ngFor="let category of categories"
+                        [value]="category"
+                    >
+                        {{ category }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>         
+          </div>      
+        </div>
+
         <div class="form-group mb-3">
-            <div class="cont-flex">
+            <div class="text-center">
                 <mat-form-field>
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fecha" />
+                    <input matInput [matDatepicker]="picker" formControlName="date" />
                     <mat-datepicker-toggle
                       matSuffix
                       [for]="picker"
@@ -70,8 +85,8 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <!-- validations -->
-            <div *ngIf="fechaField.errors && montoField.dirty">
-                <span *ngIf="fechaField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
+            <div *ngIf="dateField.errors && dateField.dirty">
+                <span *ngIf="dateField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
                 <!-- <span *ngIf="fechaField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span> -->
             </div>
             </div>        

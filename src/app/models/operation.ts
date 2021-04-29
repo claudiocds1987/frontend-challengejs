@@ -1,7 +1,9 @@
 export interface Operation {
+    id_operation: number;
     userEmail: string;
-    concepto: string;
-    monto: number;
-    fecha: Date;
-    tipo: string;
+    concept: string;
+    amount: number;
+    date: Date;
+    type: string;
+    category: string;
 }
