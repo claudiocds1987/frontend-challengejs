@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 // models
 import { Operation } from '../../models/operation';
 
 // services
-import {OperationService } from '../../services/operation.service';
+import { OperationService } from '../../services/operation.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +16,14 @@ import {OperationService } from '../../services/operation.service';
 export class HomeComponent implements OnInit {
 
   operations: Operation[] = [];
+  users: User[] = [];
   incomeAmount:number = 0;
   expensesAmount:number = 0;
-  constructor(public operationService: OperationService) {}
+  
+  constructor(
+    public operationService: OperationService,
+    public userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.calculateAmounts();
@@ -38,6 +45,15 @@ export class HomeComponent implements OnInit {
       },
       err => console.error('Error al obtener operaciones de tipo ingreso')
     )
+  }
+
+  getUsers(){
+    this.userService.getUsers().subscribe(
+      res => {
+        this.users = res;
+      },
+      err => console.error('Error al obtener los usuarios')
+    );
   }
 
 

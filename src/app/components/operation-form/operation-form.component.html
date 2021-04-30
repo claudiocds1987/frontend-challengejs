@@ -1,7 +1,5 @@
-
 <div class="row">
-
-  <div class="col-sm-4">
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div *ngIf="userEmail != null || userEmail != undefined else emptyUser" class="card">
       <div class="card-body">
         <div style="background: rgb(197, 253, 67)" class="card-header">
@@ -111,7 +109,7 @@
     </div>
   </div>
 
-  <div class="col-sm-8">
+  <div class="col-sx-12 col-sm-8 col-md-8 col-lg-8">
     <label class="mr-3">Listar por tipo:</label>
     <mat-form-field>      
         <mat-select formControlName="type" (selectionChange)="captureOperationType($event)">
