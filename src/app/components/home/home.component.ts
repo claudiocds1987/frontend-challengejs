@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateAmounts();
+    this.getLastUsers();
   }
 
   calculateAmounts(){
@@ -43,16 +44,16 @@ export class HomeComponent implements OnInit {
           }
         })
       },
-      err => console.error('Error al obtener operaciones de tipo ingreso')
+      err => console.error('Error al obtener operaciones de tipo ingreso. ' + err)
     )
   }
 
-  getUsers(){
-    this.userService.getUsers().subscribe(
+  getLastUsers(){
+    this.userService.getLastUsers().subscribe(
       res => {
         this.users = res;
       },
-      err => console.error('Error al obtener los usuarios')
+      err => console.error('Error al obtener los usuarios.' + err)
     );
   }
 

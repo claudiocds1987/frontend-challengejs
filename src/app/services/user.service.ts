@@ -21,4 +21,9 @@ export class UserService {
     return this.http.get<User[]>(`${this.SERVER}/api/users`);
   }
 
+  // devuelve los ultimos 10 usuarios registrados
+  getLastUsers(): Observable<any>{
+    return this.http.get<User[]>(`${this.SERVER}/api/users/last`);
+  }
+
 }
