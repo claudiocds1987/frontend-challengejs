@@ -33,6 +33,12 @@ export class OperationService {
     );
   }
 
+  filterOperationsByUser(userEmail: string, search: string): Observable<any>{
+    return this.http.get<Operation[]>(
+      `${this.SERVER}/api/operations/filter/${userEmail}/${search}`
+    );
+  }
+
   // getOperationsByType(typeOperation: string): Observable<any>{
   //   return this.http.get<Operation[]>(
   //     `${this.SERVER}/api/operations/${typeOperation}`

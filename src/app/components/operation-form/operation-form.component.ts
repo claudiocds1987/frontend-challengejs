@@ -32,9 +32,7 @@ export class OperationFormComponent implements OnInit {
   ];
 
   categories: Category[] = [];
-
   currentDate = new Date();
-  
   form: FormGroup;
   userEmail;
 
@@ -55,20 +53,9 @@ export class OperationFormComponent implements OnInit {
     this.getCategories();
   }
 
-  getAllOperationsByUserAndType(operationType: string){
-    this.operationService.getAllOperationsByUserAndType(this.userEmail, operationType).subscribe(
-      res => {
-        console.log(res);
-        this.operationsList = res;
-      },
-      err => console.error('Error al obtener las operaciones. ' + err)
-    );
-  }
-
   getCategories(){
     this.categoryService.getCategories().subscribe(
       res => {
-        // console.log(res);
         this.categories = res;
       },
       err => console.error('Error to get categories ' + err)
@@ -79,7 +66,7 @@ export class OperationFormComponent implements OnInit {
     // this.formBuilder.group crea un grupo de formControls basados en json
     this.form = this.formBuilder.group({
       concept: ['', [Validators.required, Validators.maxLength(50)]],
-      amount:  ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      amount:  ['', [Validators.required, Validators.maxLength(10),Validators.pattern('^[0-9]+$')]],
       type: ['', [Validators.required]],
       category: ['', [Validators.required]],
       date: [this.currentDate, [Validators.required]],  
@@ -110,7 +97,6 @@ export class OperationFormComponent implements OnInit {
   // captura el value del <select> tipos
   captureType(event: MatSelectChange) {
     this.operation.type = event.value;
-    // console.log('Objeto: '+ this.operation.tipo);
   }
 
   // captura el value del <select> categorias
@@ -118,30 +104,22 @@ export class OperationFormComponent implements OnInit {
     this.operation.category = event.value;
   }
 
+
   addOperation(event: Event){
     event.preventDefault(); // para que no recargue/refresh la pagina al enviar la data
     if(this.form.valid){
       this.operation = this.form.value;
       this.operation.userEmail = this.userEmail;
-      console.log('EMAIL: ' + this.operation.userEmail);
-      console.log('CONCEPTO: ' + this.operation.concept);
-      console.log('MONTO: ' + this.operation.amount);
-      console.log('TIPO: ' + this.operation.type);
-      console.log('CATEGORIA: ' + this.operation.category);
-      console.log('FECHA: ' + this.operation.date);
-      
+    
       if(this.operation.date > this.currentDate){
         alert('La fecha de operación no puede ser mayor a la fecha actual.');
       }else{
-        console.log('CACA');
-        // aca service que haga el insert
         this.operationService.createOperation(this.operation).subscribe(
           res => {
-            console.log(res);
             alert('La operación fue guardada!');
             this.form.reset();
           },
-          err => alert('Error. No se pudo realizar la operación')
+          err => alert('Error. No se pudo realizar la operación. ' + err)
         );
         
       }
@@ -149,11 +127,39 @@ export class OperationFormComponent implements OnInit {
     }   
   }
 
-  // captura el value del <select> tipos de la lista
+
+
+  getAllOperationsByUserAndType(operationType: string){
+    this.operationService.getAllOperationsByUserAndType(this.userEmail, operationType).subscribe(
+      res => {
+        this.operationsList = res;
+      },
+      err => console.error('Error al obtener las operaciones. ' + err)
+    );
+  }
+
+  filterOperationsByUser(search: string){
+    this.operationService.filterOperationsByUser(this.userEmail, search).subscribe(
+      res => {
+        this.operationsList = res;
+      },
+      err => console.error('Error al obtener las operaciones. ' + err)
+    );
+  }
+
+  // captura el value del <select> del filtrado
   captureOperationType(event: MatSelectChange){
-    let operationType = event.value;
-    console.log('OP ELEGIDA: ' + operationType);
+    const operationType = event.value;
+    // deberia usar aca la funcion de filtrar no esta funcion
     this.getAllOperationsByUserAndType(operationType);
+  }
+
+   // captura el value del <select> categorias del filtrado
+   captureCategory2(event: MatSelectChange) {
+    const category_id = event.value;
+    console.log('asdasd: ' + category_id);
+    // aca funcion filter
+    this.filterOperationsByUser(category_id);
   }
 
 }
