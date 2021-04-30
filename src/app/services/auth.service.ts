@@ -20,17 +20,17 @@ export class AuthService {
 
   // login
   userLogin(email: string, password){
-    return this.http.post(`${this.SERVER}/api/users/login`, {email, password})
+    return this.http.post(`${this.SERVER}/api/auth/login`, {email, password})
   }
 
   // registro de usuario
   userSignup(user: User){
-    return this.http.post(`${this.SERVER}/api/users`, user);
+    return this.http.post(`${this.SERVER}/api/auth/signup`, user);
   }
 
-  checkUserEmail(email: string){
-    return this.http.get(`${this.SERVER}/api/users/check/` + email);
-  }
+  // checkUserEmail(email: string){
+  //   return this.http.get(`${this.SERVER}/api/users/check/` + email);
+  // }
 
 
 }

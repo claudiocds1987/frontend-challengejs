@@ -26,4 +26,8 @@ export class UserService {
     return this.http.get<User[]>(`${this.SERVER}/api/users/last`);
   }
 
+  checkUserEmail(email: string){
+    return this.http.get(`${this.SERVER}/api/users/check/` + email);
+  }
+
 }

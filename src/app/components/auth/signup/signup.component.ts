@@ -7,6 +7,7 @@ import { User } from '../../../models/user';
 
 // services
 import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,6 +24,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     public authService: AuthService,
+    public userService: UserService,
     public router: Router
     ) {
     this.buildForm();
@@ -76,7 +78,7 @@ export class SignupComponent implements OnInit {
         debounceTime(450) // pasado este tiempo realiza la búsqueda en la db
       )
       .subscribe((value) => {
-        this.authService.checkUserEmail(value).subscribe((res) => {
+        this.userService.checkUserEmail(value).subscribe((res) => {
           if (res) {
             this.emailExist = true; 
           } else {
