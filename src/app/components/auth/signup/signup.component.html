@@ -25,6 +25,9 @@
                       <span *ngIf="emailField.hasError('maxlength')"><small class="text-danger">El email es muy largo</small></span>
                       <span *ngIf="emailField.hasError('required')"><small class="text-danger">Este campo es obligatorio</small></span>
                   </div>
+                  <div *ngIf="emailExist && !emailField.errors" class="text-center mb-3">
+                    <small class="text-danger">Este email ya fue tomado!</small>
+                  </div>
                 </div>        
             </div>
     
@@ -49,7 +52,7 @@
             <button
                 type="submit"
                 class="btn btn-primary btn-block"
-                [disabled]="form.invalid"
+                [disabled]="form.invalid || emailExist"
               >
                 REGISTRARME
               </button>

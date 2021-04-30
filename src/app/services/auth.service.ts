@@ -28,6 +28,10 @@ export class AuthService {
     return this.http.post(`${this.SERVER}/api/users`, user);
   }
 
+  checkUserEmail(email: string){
+    return this.http.get(`${this.SERVER}/api/users/check/` + email);
+  }
+
 
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 // model
 import { User } from '../../../models/user';
@@ -16,6 +17,8 @@ export class SignupComponent implements OnInit {
 
   user = {} as User;
   form: FormGroup;
+  currentDate = new Date();
+  emailExist: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -23,6 +26,7 @@ export class SignupComponent implements OnInit {
     public router: Router
     ) {
     this.buildForm();
+    this.checkEmail();
   }
 
   ngOnInit(): void {
@@ -49,6 +53,7 @@ export class SignupComponent implements OnInit {
     event.preventDefault();
     if(this.form.valid){
       this.user = this.form.value;
+      this.user.registration_date = this.currentDate;
       // servicio
       this.authService.userSignup(this.user).subscribe(
         res => {
@@ -64,5 +69,22 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  checkEmail() {
+    this.form
+      .get('email')
+      .valueChanges.pipe(
+        debounceTime(450) // pasado este tiempo realiza la búsqueda en la db
+      )
+      .subscribe((value) => {
+        this.authService.checkUserEmail(value).subscribe((res) => {
+          if (res) {
+            this.emailExist = true; 
+          } else {
+            this.emailExist = false;
+          }
+        }),
+          (err) => console.error('Error en la db al verificar el email ' + err);
+      });
+  }
 
 }

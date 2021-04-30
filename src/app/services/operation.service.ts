@@ -17,14 +17,27 @@ export class OperationService {
 		}
   }
 
+  createOperation(operation: Operation): Observable<any>{
+    return this.http.post(`${this.SERVER}/api/operations`, operation);
+  }
+
   getAllOperationsByUserAndType(userEmail: string, typeOperation: string): Observable<any>{
     return this.http.get<Operation[]>(
       `${this.SERVER}/api/operations/${userEmail}/${typeOperation}`
     );
   }
 
-  createOperation(operation: Operation): Observable<any>{
-    return this.http.post(`${this.SERVER}/api/operations`, operation);
+  getOperations(): Observable<any>{
+    return this.http.get<Operation[]>(
+      `${this.SERVER}/api/operations`
+    );
   }
+
+  // getOperationsByType(typeOperation: string): Observable<any>{
+  //   return this.http.get<Operation[]>(
+  //     `${this.SERVER}/api/operations/${typeOperation}`
+  //   );
+  // }
+
 
 }
