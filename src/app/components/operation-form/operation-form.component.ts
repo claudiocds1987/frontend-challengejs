@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 // para forms reactivos
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
 // model
 import { Operation } from '../../models/operation';
+import { Category } from '../../models/category';
 
 // services
 import { OperationService } from '../../services/operation.service';
@@ -23,29 +24,26 @@ export class OperationFormComponent implements OnInit {
   import { FormsModule, ReactiveFormsModule } from '@angular/forms';*/
 
   operation = {} as Operation;
-  // operationsList = {} as Operation;
-  operationsList: Operation[] = [];
+  operationsList: any[] = [];
   
   types = [
     'ingreso',
     'egreso',
   ];
 
-  categories = [
-    'comida',
-    'viaticos',
-    'otros',
-    'impuestos'
-  ]
+  categories: Category[] = [];
 
   currentDate = new Date();
   
   form: FormGroup;
   userEmail;
 
+  // disableSelect = new FormControl(false);
+
   constructor(
     private formBuilder: FormBuilder,
-    public operationService: OperationService
+    public operationService: OperationService,
+    public categoryService: CategoryService
     ) {
     if(localStorage.getItem('user') !== null){
       this.userEmail = localStorage.getItem('user');
@@ -54,7 +52,7 @@ export class OperationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // sadasdsad
+    this.getCategories();
   }
 
   getAllOperationsByUserAndType(operationType: string){
@@ -64,6 +62,16 @@ export class OperationFormComponent implements OnInit {
         this.operationsList = res;
       },
       err => console.error('Error al obtener las operaciones. ' + err)
+    );
+  }
+
+  getCategories(){
+    this.categoryService.getCategories().subscribe(
+      res => {
+        // console.log(res);
+        this.categories = res;
+      },
+      err => console.error('Error to get categories ' + err)
     );
   }
 

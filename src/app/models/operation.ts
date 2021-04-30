@@ -5,5 +5,5 @@ export interface Operation {
     amount: number;
     date: Date;
     type: string;
-    category: string;
+    category: number;
 }

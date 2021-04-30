@@ -68,9 +68,9 @@
                   <mat-select formControlName="category" (selectionChange)="captureCategory($event)">
                       <mat-option
                           *ngFor="let category of categories"
-                          [value]="category"
+                          [value]="category.id"
                       >
-                          {{ category }}
+                          {{ category.name }}
                       </mat-option>
                   </mat-select>
               </mat-form-field>         
@@ -123,6 +123,8 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+    <!-- <mat-checkbox [formControl]="disableSelect">Disable select</mat-checkbox> -->
     
     <table class="table table-striped mt-1">
       <thead>

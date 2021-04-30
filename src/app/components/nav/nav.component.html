@@ -1,3 +1,21 @@
+<header>
+  <div class="contenedor">
+    <h1>Alkemy challengejs</h1>
+    <input type="checkbox" id="menu-bar" (click)="hideMenu('menu-bar')"/>
+    <label class="icon-menu" for="menu-bar">
+      <i class="fa fa-bars"></i>
+    </label>
+    <nav id="menu" class="menu" [ngClass]="{'hideMenu': hide, 'showMenu': show && !hide}">
+      <a *ngIf="userEmail != null || userEmail != undefined" class="text-primary">{{userEmail}}</a>
+      <a (click)="hideMenu('home')"><i class="fas fa-home mr-2"></i>Home</a>
+      <a (click)="hideMenu('create-operation')">New operation</a>
+      <a (click)="hideMenu('list-operations')">List Operation</a>
+      <a (click)="hideMenu('login')"><i class="fa fa-user mr-2" aria-hidden="true"></i>Login</a>
+    </nav>
+  </div>
+</header>
+
+
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Alkemy challengejs</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,19 +42,3 @@
     </div>
   </nav> -->
 
-  <header>
-    <div class="contenedor">
-      <h1>Alkemy challengejs</h1>
-      <input type="checkbox" id="menu-bar" (click)="hideMenu('menu-bar')"/>
-      <label class="icon-menu" for="menu-bar">
-        <i class="fas fa-bars"></i>
-      </label>
-      <nav id="menu" class="menu" [ngClass]="{'hideMenu': hide, 'showMenu': show && !hide}">
-        <a *ngIf="userEmail != null || userEmail != undefined">{{userEmail}}</a>
-        <a (click)="hideMenu('home')">Home</a>
-        <a (click)="hideMenu('create-operation')"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>New operation</a>
-        <a (click)="hideMenu('list-operations')"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>List Operation</a>
-        <a (click)="hideMenu('login')"><i class="fa fa-user mr-2" aria-hidden="true"></i>Login</a>
-      </nav>
-    </div>
-  </header>
