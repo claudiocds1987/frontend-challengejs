@@ -6,4 +6,5 @@ export interface Operation {
     date: Date;
     type: string;
     category: number;
+    state: boolean;
 }

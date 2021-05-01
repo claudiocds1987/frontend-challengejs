@@ -128,16 +128,6 @@ export class OperationFormComponent implements OnInit {
   }
 
 
-
-  getAllOperationsByUserAndType(operationType: string){
-    this.operationService.getAllOperationsByUserAndType(this.userEmail, operationType).subscribe(
-      res => {
-        this.operationsList = res;
-      },
-      err => console.error('Error al obtener las operaciones. ' + err)
-    );
-  }
-
   filterOperationsByUser(search: string){
     this.operationService.filterOperationsByUser(this.userEmail, search).subscribe(
       res => {
@@ -150,16 +140,22 @@ export class OperationFormComponent implements OnInit {
   // captura el value del <select> del filtrado
   captureOperationType(event: MatSelectChange){
     const operationType = event.value;
-    // deberia usar aca la funcion de filtrar no esta funcion
-    this.getAllOperationsByUserAndType(operationType);
+    this.filterOperationsByUser(operationType);
   }
 
    // captura el value del <select> categorias del filtrado
    captureCategory2(event: MatSelectChange) {
     const category_id = event.value;
-    console.log('asdasd: ' + category_id);
-    // aca funcion filter
     this.filterOperationsByUser(category_id);
   }
+
+   // getAllOperationsByUserAndType(operationType: string){
+  //   this.operationService.getAllOperationsByUserAndType(this.userEmail, operationType).subscribe(
+  //     res => {
+  //       this.operationsList = res;
+  //     },
+  //     err => console.error('Error al obtener las operaciones. ' + err)
+  //   );
+  // }
 
 }
