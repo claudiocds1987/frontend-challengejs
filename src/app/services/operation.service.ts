@@ -21,12 +21,6 @@ export class OperationService {
     return this.http.post(`${this.SERVER}/api/operations`, operation);
   }
 
-  // getAllOperationsByUserAndType(userEmail: string, typeOperation: string): Observable<any>{
-  //   return this.http.get<Operation[]>(
-  //     `${this.SERVER}/api/operations/${userEmail}/${typeOperation}`
-  //   );
-  // }
-
   getOperations(): Observable<any>{
     return this.http.get<Operation[]>(
       `${this.SERVER}/api/operations`
@@ -38,12 +32,5 @@ export class OperationService {
       `${this.SERVER}/api/operations/filter/${userEmail}/${search}`
     );
   }
-
-  // getOperationsByType(typeOperation: string): Observable<any>{
-  //   return this.http.get<Operation[]>(
-  //     `${this.SERVER}/api/operations/${typeOperation}`
-  //   );
-  // }
-
 
 }

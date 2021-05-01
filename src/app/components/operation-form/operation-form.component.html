@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 mb-3">
+  <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
     <div
       *ngIf="userEmail != null || userEmail != undefined; else emptyUser"
       class="card"
@@ -136,81 +136,92 @@
     </div>
   </div>
 
-  <div class="col-sx-12 col-sm-8 col-md-8 col-lg-8">
-    <div class="d-flex justify-content-between">
-      <div class="d-flex">
-      
-        <mat-form-field>
-          <!-- <div> -->
-            <mat-checkbox
-              [checked]="checkbox1" 
-              (change)="setStateSelectOp2($event, 'type')"
-              [disabled]="disabled1"
-            >
-              Listar por tipo
-            </mat-checkbox>
-          <!-- </div> -->
-        
-          <!-- <div> -->
+  <div class="col-sm-12 col-md-8 col-lg-8">
+    <div class="box-filter">
+      <div class="d-flex align-items-center">
+        <div class="mr-3">
+          <mat-checkbox
+            [checked]="checkbox1"
+            (change)="setStateSelectOp2($event, 'type')"
+            [disabled]="disabled1"
+          >
+            Listar por tipo:
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="checkbox1">
+          <mat-form-field>
             <mat-select
               [disabled]="disabled1"
               (selectionChange)="captureOperation2($event)"
             >
-              <mat-option *ngFor="let type of types" [value]="type" [disabled]="disabled1">
+              <mat-option
+                *ngFor="let type of types"
+                [value]="type"
+                [disabled]="disabled1"
+              >
                 {{ type }}
               </mat-option>
             </mat-select>
-          <!-- </div> -->
-   
-        </mat-form-field>
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="d-flex">
-        <mat-form-field>
+      <div class="d-flex align-items-center">
+        <div class="mr-3">
           <mat-checkbox
-          [checked]="checkbox2" 
-          (change)="setStateSelectOp2($event, 'category')"
-          [disabled]="disabled2"
-        >
-          Listar por categoria
-        </mat-checkbox>
-          <mat-select
+            [checked]="checkbox2"
+            (change)="setStateSelectOp2($event, 'category')"
             [disabled]="disabled2"
-            (selectionChange)="captureCategory2($event)"
           >
-            <mat-option *ngFor="let cat of categories" [value]="cat.id"  [disabled]="disabled2">
-              {{ cat.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            Listar por categoria:
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="checkbox2">
+          <mat-form-field>
+            <mat-select
+              [disabled]="disabled2"
+              (selectionChange)="captureCategory2($event)"
+            >
+              <mat-option
+                *ngFor="let cat of categories"
+                [value]="cat.id"
+                [disabled]="disabled2"
+              >
+                {{ cat.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
 
-    <!-- <mat-checkbox [formControl]="disableSelect">Disable select</mat-checkbox> -->
-
-    <table class="table table-striped mt-1">
-      <thead>
-        <tr class="text-center">
-          <th class="text-center">Fecha</th>
-          <th class="text-center">Concepto</th>
-          <th class="text-center">Monto</th>
-          <th class="text-center">Categoria</th>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody *ngIf="operationsList.length > 0; else notResult">
-        <tr *ngFor="let op of operationsList" class="text-center">
-          <td class="text-center">{{ op.date | date: "dd/MM/yyyy" }}</td>
-          <td class="text-center">{{ op.concept }}</td>
-          <td class="text-center">${{ op.amount }}</td>
-          <td class="text-center">{{ op.category }}</td>
-          <td>
-            <button class="btn btn-primary btn-sm mr-1">Editar</button>
-            <button class="btn btn-danger btn-sm mr-1">eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped mt-1">
+        <thead>
+          <tr class="text-center">
+            <th class="text-center">Fecha</th>
+            <th class="text-center">Concepto</th>
+            <th class="text-center">Monto</th>
+            <th class="text-center">Categoria</th>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody *ngIf="operationsList.length > 0; else notResult">
+          <tr *ngFor="let op of operationsList" class="text-center">
+            <td class="text-center">{{ op.date | date: "dd/MM/yyyy" }}</td>
+            <td class="text-center">{{ op.concept }}</td>
+            <td class="text-center">${{ op.amount }}</td>
+            <td class="text-center">{{ op.category }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm mr-1">Editar</button>
+              <button class="btn btn-danger btn-sm mr-1">eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
