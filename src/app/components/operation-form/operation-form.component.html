@@ -138,22 +138,47 @@
 
   <div class="col-sx-12 col-sm-8 col-md-8 col-lg-8">
     <div class="d-flex justify-content-between">
-      <div>
-        <label class="mr-3">Listar por tipo:</label>
+      <div class="d-flex">
+      
         <mat-form-field>
-          <mat-select (selectionChange)="captureOperationType($event)">
-            <mat-option *ngFor="let type of types" [value]="type">
-              {{ type }}
-            </mat-option>
-          </mat-select>
+          <!-- <div> -->
+            <mat-checkbox
+              [checked]="checkbox1" 
+              (change)="setStateSelectOp2($event, 'type')"
+              [disabled]="disabled1"
+            >
+              Listar por tipo
+            </mat-checkbox>
+          <!-- </div> -->
+        
+          <!-- <div> -->
+            <mat-select
+              [disabled]="disabled1"
+              (selectionChange)="captureOperation2($event)"
+            >
+              <mat-option *ngFor="let type of types" [value]="type" [disabled]="disabled1">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          <!-- </div> -->
+   
         </mat-form-field>
       </div>
 
-      <div>
-        <label class="mr-3">Listar por categoria:</label>
+      <div class="d-flex">
         <mat-form-field>
-          <mat-select (selectionChange)="captureCategory2($event)">
-            <mat-option *ngFor="let cat of categories" [value]="cat.id">
+          <mat-checkbox
+          [checked]="checkbox2" 
+          (change)="setStateSelectOp2($event, 'category')"
+          [disabled]="disabled2"
+        >
+          Listar por categoria
+        </mat-checkbox>
+          <mat-select
+            [disabled]="disabled2"
+            (selectionChange)="captureCategory2($event)"
+          >
+            <mat-option *ngFor="let cat of categories" [value]="cat.id"  [disabled]="disabled2">
               {{ cat.name }}
             </mat-option>
           </mat-select>
