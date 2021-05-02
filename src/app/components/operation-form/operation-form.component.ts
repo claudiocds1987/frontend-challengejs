@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // para forms reactivos
 import {
@@ -47,7 +48,8 @@ export class OperationFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public operationService: OperationService,
-    public categoryService: CategoryService
+    public categoryService: CategoryService,
+    public router: Router
   ) {
     if (localStorage.getItem('user') !== null) {
       this.userEmail = localStorage.getItem('user');
@@ -57,7 +59,10 @@ export class OperationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
+    this.filterOperationsByUser('ingreso');
   }
+
+
 
   getCategories() {
     this.categoryService.getCategories().subscribe(
@@ -130,6 +135,9 @@ export class OperationFormComponent implements OnInit {
           (res) => {
             alert('La operación fue guardada!');
             this.form.reset();
+            this.router.navigate(['addOperation']).then(() => {
+              window.location.reload();
+            });
           },
           (err) => alert('Error. No se pudo realizar la operación. ' + err)
         );
@@ -188,6 +196,7 @@ export class OperationFormComponent implements OnInit {
           this.disabled2 = !this.disabled2;
           this.checkbox1 = !this.checkbox1;
           this.disabled1 = !this.disabled1;
+          this.filterOperationsByUser('ingreso');
           // console.log('checkbox2:' + this.checkbox2)
           // console.log('disabled2:' + this.disabled2)
         }
@@ -195,4 +204,27 @@ export class OperationFormComponent implements OnInit {
       default:
     }
   }
+
+  deleteOperation(id_operation: number) {
+    const deleteOperation: Partial<Operation> = {
+      state: false, // envio la propiedad state = false
+    };
+    
+    const confirm = window.confirm('¿Realmente quiere eliminar la operación?');
+
+    if(confirm){
+      this.operationService.deleteOperation(id_operation, deleteOperation).subscribe(
+        (res) => {
+          if (res) {
+            alert('La operación fue eliminada');
+          }
+        },
+        (err) => alert('Error al intentar eliminar la operación')
+      );
+      this.router.navigate(['addOperation']).then(() => {
+        window.location.reload();
+      });
+    }
+  }
+
 }

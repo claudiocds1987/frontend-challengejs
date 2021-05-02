@@ -152,6 +152,7 @@
         <div *ngIf="checkbox1">
           <mat-form-field>
             <mat-select
+              [value]="types[0]"
               [disabled]="disabled1"
               (selectionChange)="captureOperation2($event)"
             >
@@ -215,8 +216,12 @@
             <td class="text-center">${{ op.amount }}</td>
             <td class="text-center">{{ op.category }}</td>
             <td>
-              <button class="btn btn-primary btn-sm mr-1">Editar</button>
-              <button class="btn btn-danger btn-sm mr-1">eliminar</button>
+              <button class="btn btn-primary btn-sm mr-1">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm mr-1" (click)="deleteOperation(op.id_operation)">
+                <i class="fas fa-trash"></i>
+              </button>
             </td>
           </tr>
         </tbody>

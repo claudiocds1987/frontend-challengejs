@@ -33,4 +33,8 @@ export class OperationService {
     );
   }
 
+  deleteOperation(id_operation: number, changes: Partial<Operation>): Observable<any>{
+    return this.http.put(`${this.SERVER}/api/operations/delete/${id_operation}`, changes);
+  }
+
 }
