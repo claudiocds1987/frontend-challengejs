@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { EditOperationComponent } from './components/edit-operation/edit-operation.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
     OperationFormComponent,
     LoginComponent,
     SignupComponent,
+    EditOperationComponent,
   ],
   imports: [
     BrowserModule,

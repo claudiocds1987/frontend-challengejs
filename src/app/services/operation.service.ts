@@ -33,6 +33,16 @@ export class OperationService {
     );
   }
 
+  getOperationById(id_operation: number): Observable<any>{
+    return this.http.get<Operation[]>(
+      `${this.SERVER}/api/operations/${id_operation}`
+    );
+  }
+
+  updateOperation(operation: Operation): Observable<any>{
+    return this.http.put(`${this.SERVER}/api/operations/${operation.id_operation}`, operation);
+  }
+
   deleteOperation(id_operation: number, changes: Partial<Operation>): Observable<any>{
     return this.http.put(`${this.SERVER}/api/operations/delete/${id_operation}`, changes);
   }

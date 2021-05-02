@@ -49,7 +49,7 @@ export class OperationFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     public operationService: OperationService,
     public categoryService: CategoryService,
-    public router: Router
+    private router: Router
   ) {
     if (localStorage.getItem('user') !== null) {
       this.userEmail = localStorage.getItem('user');
@@ -123,7 +123,7 @@ export class OperationFormComponent implements OnInit {
   }
 
   addOperation(event: Event) {
-    event.preventDefault(); // para que no recargue/refresh la pagina al enviar la data
+    event.preventDefault();
     if (this.form.valid) {
       this.operation = this.form.value;
       this.operation.userEmail = this.userEmail;
@@ -197,8 +197,6 @@ export class OperationFormComponent implements OnInit {
           this.checkbox1 = !this.checkbox1;
           this.disabled1 = !this.disabled1;
           this.filterOperationsByUser('ingreso');
-          // console.log('checkbox2:' + this.checkbox2)
-          // console.log('disabled2:' + this.disabled2)
         }
         break;
       default:
@@ -207,7 +205,7 @@ export class OperationFormComponent implements OnInit {
 
   deleteOperation(id_operation: number) {
     const deleteOperation: Partial<Operation> = {
-      state: false, // envio la propiedad state = false
+      state: false,
     };
     
     const confirm = window.confirm('¿Realmente quiere eliminar la operación?');

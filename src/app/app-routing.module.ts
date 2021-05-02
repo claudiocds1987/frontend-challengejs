@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { OperationFormComponent } from './components/operation-form/operation-form.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { EditOperationComponent } from './components/edit-operation/edit-operation.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'addOperation',
         component: OperationFormComponent
+      },
+      {
+        path: 'editOperation/:id_operation',
+        component: EditOperationComponent
       },
       {
         path: 'login',

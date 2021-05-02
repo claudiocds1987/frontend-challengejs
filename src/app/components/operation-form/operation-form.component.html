@@ -216,7 +216,7 @@
             <td class="text-center">${{ op.amount }}</td>
             <td class="text-center">{{ op.category }}</td>
             <td>
-              <button class="btn btn-primary btn-sm mr-1">
+              <button class="btn btn-primary btn-sm mr-1" [routerLink]="['/editOperation', op.id_operation]">
                 <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-danger btn-sm mr-1" (click)="deleteOperation(op.id_operation)">
