@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 // para forms reactivos
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -41,10 +40,9 @@ export class OperationFormComponent implements OnInit {
   // para habilitar o deshabilitar los select del filtrado
   checkbox1 = true;
   disabled1 = false;
-
   checkbox2 = false;
   disabled2 = true;
-  /////////////////////////////////////////
+ 
   constructor(
     private formBuilder: FormBuilder,
     public operationService: OperationService,
@@ -176,26 +174,34 @@ export class OperationFormComponent implements OnInit {
     switch (key) {
       case 'type':
         if (activated) {
+          this.filterOperationsByUser('ingreso');
           // esta seteado por default
-        } else {
-          this.checkbox1 = !this.checkbox1;
-          this.disabled1 = true;
           this.checkbox2 = !this.checkbox2;
           this.disabled2 = !this.disabled2;
-          console.log('checkbox2:' + this.checkbox2)
-          console.log('disabled2:' + this.disabled2)
+          this.checkbox1 = !this.checkbox1;
+          //this.disabled1 = !this.disabled1;
+        } else {
+          this.checkbox1 = !this.checkbox1;
+         // this.disabled1 = !this.disabled1;
+          //this.disabled1 = true;
+          this.checkbox2 = !this.checkbox2;
+          this.disabled2 = !this.disabled2;
+          // console.log('checkbox2:' + this.checkbox2)
+          // console.log('disabled2:' + this.disabled2)
         }
         break;
       case 'category':
         if (activated) {
+          this.checkbox2 = !this.checkbox2;
           this.checkbox1 = !this.checkbox1;
-          this.disabled1 = !this.disabled1;
+          //this.disabled1 = !this.disabled1;
           this.disabled2 = !this.disabled2;
+          
         } else {
           this.checkbox2 = !this.checkbox2;
           this.disabled2 = !this.disabled2;
-          this.checkbox1 = !this.checkbox1;
-          this.disabled1 = !this.disabled1;
+          this.checkbox1 = true;
+          //this.disabled1 = !this.disabled1;
           this.filterOperationsByUser('ingreso');
         }
         break;
