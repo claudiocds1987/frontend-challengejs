@@ -1,17 +1,25 @@
 <header>
   <div class="contenedor">
     <h1>Alkemy challengejs</h1>
-    <input type="checkbox" id="menu-bar" (click)="hideMenu('menu-bar')"/>
+    <input type="checkbox" id="menu-bar" (click)="hideMenu('menu-bar')" />
     <label class="icon-menu" for="menu-bar">
       <i class="fa fa-bars"></i>
     </label>
-    <nav id="menu" class="menu" [ngClass]="{'hideMenu': hide, 'showMenu': show && !hide}">
-      <a *ngIf="userEmail != null || userEmail != undefined" class="text-primary">{{userEmail}}</a>
+    <nav
+      id="menu"
+      class="menu"
+      [ngClass]="{ hideMenu: hide, showMenu: show && !hide }"
+    >
+      <a
+        *ngIf="userEmail != null || userEmail != undefined"
+        class="text-primary"
+        >{{ userEmail }}</a
+      >
       <a (click)="hideMenu('home')"><i class="fas fa-home mr-2"></i>Home</a>
       <a (click)="hideMenu('create-operation')">New operation</a>
-      <a (click)="hideMenu('login')"><i class="fa fa-user mr-2" aria-hidden="true"></i>Login</a>
+      <a (click)="hideMenu('login')"
+        ><i class="fa fa-user mr-2" aria-hidden="true"></i>Login</a
+      >
     </nav>
   </div>
 </header>
-
-
