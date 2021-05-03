@@ -24,14 +24,10 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
   styleUrls: ['./operation-form.component.scss'],
 })
 export class OperationFormComponent implements OnInit {
-  /* IMPORTANTE: Para que funcionen los form reactivos importar en app.module.ts
-  import { FormsModule, ReactiveFormsModule } from '@angular/forms';*/
-
+  
   operation = {} as Operation;
   operationsList: any[] = [];
-
   types = ['ingreso', 'egreso'];
-
   categories: Category[] = [];
   currentDate = new Date();
   form: FormGroup;
@@ -57,8 +53,6 @@ export class OperationFormComponent implements OnInit {
     this.getCategories();
     this.filterOperationsByUser('ingreso');
   }
-
-
 
   getCategories() {
     this.categoryService.getCategories().subscribe(
