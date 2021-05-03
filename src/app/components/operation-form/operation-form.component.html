@@ -114,7 +114,6 @@
                     >Este campo es obligatorio</small
                   ></span
                 >
-                <!-- <span *ngIf="fechaField.hasError('pattern')"><small class="text-danger">Solo numeros!</small></span> -->
               </div>
             </div>
           </div>
@@ -151,10 +150,7 @@
               [value]="types[0]"
               (selectionChange)="captureOperation2($event)"
             >
-              <mat-option
-                *ngFor="let type of types"
-                [value]="type"
-              >
+              <mat-option *ngFor="let type of types" [value]="type">
                 {{ type }}
               </mat-option>
             </mat-select>
@@ -166,7 +162,7 @@
         <div class="mr-3">
           <mat-checkbox
             [checked]="checkbox2"
-            (change)="setStateSelectOp2($event, 'category')"          
+            (change)="setStateSelectOp2($event, 'category')"
           >
             Categoria:
           </mat-checkbox>
@@ -174,13 +170,8 @@
 
         <div *ngIf="checkbox2">
           <mat-form-field>
-            <mat-select       
-              (selectionChange)="captureCategory2($event)"
-            >
-              <mat-option
-                *ngFor="let cat of categories"
-                [value]="cat.id"
-              >
+            <mat-select (selectionChange)="captureCategory2($event)">
+              <mat-option *ngFor="let cat of categories" [value]="cat.id">
                 {{ cat.name }}
               </mat-option>
             </mat-select>
@@ -207,10 +198,16 @@
             <td class="text-center">${{ op.amount }}</td>
             <td class="text-center">{{ op.category }}</td>
             <td>
-              <button class="btn btn-primary btn-sm mr-1" [routerLink]="['/editOperation', op.id_operation]">
+              <button
+                class="btn btn-primary btn-sm mr-1"
+                [routerLink]="['/editOperation', op.id_operation]"
+              >
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-danger btn-sm mr-1" (click)="deleteOperation(op.id_operation)">
+              <button
+                class="btn btn-danger btn-sm mr-1"
+                (click)="deleteOperation(op.id_operation)"
+              >
                 <i class="fas fa-trash"></i>
               </button>
             </td>
