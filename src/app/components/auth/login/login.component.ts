@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   private buildForm(){
-    // this.formBuilder.group crea un grupo de formControls basados en json
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
       password: ['', [Validators.required, Validators.maxLength(25), Validators.minLength(6)]],  
@@ -59,10 +58,9 @@ export class LoginComponent implements OnInit {
       this.authService.userLogin(this.user.email,this.user.password).subscribe(
         res => {
           console.log(res);
-          // aca crear la localStorage y redirigir
           localStorage.setItem('user', this.user.email);
           this.router.navigate(['home']).then(() => {
-            // para hacer refresh
+            // hace refresh
             window.location.reload();
           });
         },
