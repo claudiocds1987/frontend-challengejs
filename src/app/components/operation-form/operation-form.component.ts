@@ -33,6 +33,7 @@ export class OperationFormComponent implements OnInit {
   form: FormGroup;
   userEmail;
 
+  selectValue = '';
   // para habilitar o deshabilitar los select del filtrado
   checkbox1 = true;
   checkbox2 = false;
@@ -147,14 +148,14 @@ export class OperationFormComponent implements OnInit {
 
   // captura el value del <select> operacion del filtrado
   captureOperation2(event: MatSelectChange) {
-    const operationType = event.value;
-    this.filterOperationsByUser(operationType);
+    this.selectValue = event.value;
+    this.filterOperationsByUser(this.selectValue);   
   }
 
   // captura el value del <select> categorias del filtrado
   captureCategory2(event: MatSelectChange) {
-    const category_id = event.value;
-    this.filterOperationsByUser(category_id);
+    this.selectValue = event.value;
+    this.filterOperationsByUser(this.selectValue);
   }
 
   setStateSelectOp2(event: MatCheckboxChange, value: string) {
@@ -197,13 +198,11 @@ export class OperationFormComponent implements OnInit {
         (res) => {
           if (res) {
             alert('La operación fue eliminada');
+            this.filterOperationsByUser(this.selectValue);
           }
         },
         (err) => alert('Error al intentar eliminar la operación')
       );
-      this.router.navigate(['addOperation']).then(() => {
-        window.location.reload();
-      });
     }
   }
 
