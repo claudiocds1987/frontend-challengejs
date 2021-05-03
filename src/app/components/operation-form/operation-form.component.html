@@ -143,7 +143,6 @@
           <mat-checkbox
             [checked]="checkbox1"
             (change)="setStateSelectOp2($event, 'type')"
-            [disabled]="disabled1"
           >
             Listar por tipo:
           </mat-checkbox>
@@ -153,13 +152,11 @@
           <mat-form-field>
             <mat-select
               [value]="types[0]"
-              [disabled]="disabled1"
               (selectionChange)="captureOperation2($event)"
             >
               <mat-option
                 *ngFor="let type of types"
                 [value]="type"
-                [disabled]="disabled1"
               >
                 {{ type }}
               </mat-option>
@@ -172,8 +169,7 @@
         <div class="mr-3">
           <mat-checkbox
             [checked]="checkbox2"
-            (change)="setStateSelectOp2($event, 'category')"
-            
+            (change)="setStateSelectOp2($event, 'category')"          
           >
             Listar por categoria:
           </mat-checkbox>
@@ -181,14 +177,12 @@
 
         <div *ngIf="checkbox2">
           <mat-form-field>
-            <mat-select
-              [disabled]="disabled2"
+            <mat-select       
               (selectionChange)="captureCategory2($event)"
             >
               <mat-option
                 *ngFor="let cat of categories"
                 [value]="cat.id"
-                [disabled]="disabled2"
               >
                 {{ cat.name }}
               </mat-option>
