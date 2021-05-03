@@ -12,7 +12,7 @@ export class NavComponent implements OnInit {
   hide: boolean = false;
   show: boolean = false;
 
-  userEmail;
+  userEmail = '';
   constructor( public router: Router) { }
 
   ngOnInit(): void {
@@ -47,12 +47,11 @@ export class NavComponent implements OnInit {
       case 'create-operation':
         this.hide = true;
         this.show = false;
-        this.router.navigate(['/addOperation']);
-        break;
-      case 'list-operations':
-        this.hide = true;
-        this.show = false;
-        this.router.navigate(['/home']);
+        if(this.userEmail === ''){
+          alert('Debe estar logeado para realizar esta acción');
+        }else{
+          this.router.navigate(['/addOperation']);
+        } 
         break;
       case 'login':
         this.hide = true;
